@@ -73,9 +73,54 @@ Outras pegadinhas da linguagem serão descritas ao longo deste livro.
 
 O jeito mais fácil é simplesmente [baixar os binários para a sua plataforma](https://julialang.org/downloads/) e instalar. Você não precisa ser administrador para instalar e pode usar localmente. Até recomendo isso para iniciantes.
 
-**Importante** Se você estiver usando Windows 7, será necessário instalar algo chamado [Microsoft Management Framework](https://www.microsoft.com/en-us/download/details.aspx?id=54616). Sem isso talvez consiga instalar e fazer algo mas não poderá instalar pacotes (veremos como é muito importante) e várias coisas podem dar errado.
+### Instalando no Windows
+
+Existem algumas opções para a instalação de Julia no Windows. Existem versões de 32 bits e 64 bits. Em geral, o recomendado instalar a versão de 64 bits. O suporte é, inclusive melhor. É lógico que existem algumas circunstâncias onde você precisará usar uma versão de 32 bits - quem nunca teve que usar uma dll antigona? 32 bits só se você tiver uma necessidade especial.
+
+Mesmo para Windows 64 bits (x86_64) existem duas versões: uma versão de instalação (*installer*) e outra portável (*portable*). A versão portável é muito útil se você quiser ter Julia em um *pendrive* e usar em qualquer computador. Já a versão de instalação, adiciona Julia ao menu iniciar e pode criar ícones na área de trabalho. Novamente, você pode instalar como usuário normal, o que é recomendado.
+
+Durante a instalação, o instalador vai perguntar se você quer colocar Julia nna variável de ambiente  `PATH`. Em geral isso não é recomendado mas para os fins deste livro, é mais simples adicionar a pasta de executáveis Julia no `PATH`. 
+
+
+**Importante** Se você estiver usando Windows 7, será necessário instalar algo chamado [Microsoft Management Framework](https://www.microsoft.com/en-us/download/details.aspx?id=54616). Sem isso talvez consiga instalar e fazer algo mas pode ter algumas limitações.
 
 Ao executar Julia pela primeira vez, será criada uma pasta `.julia` no teu `HOME`. Nesta pasta estarão instalados os pacotes e suas dependências. Esta pasta pode crescer bastante. Em um sistema multi-usuário pode ser interessante compartilhar esta pasta entre diferentes usuários. Isso não será abordado neste livro.
+
+### Instalando no Linux
+
+Se você for mais aventureiro, pode compilar o código fonte mas dificilmente há motivo para isso. Algumas coisas em Julia são implementadas em C/C++ e muita gente acha que usar um compilador otimizado para o seu sistema permitirá obter mais um pouquinho de desempenho. Esqueça! O código Julia *que você escreve* é compilado usando [LLVM](https://llvm.org/) e usar um outro compilador não vai melhorar o desempenho. Talvez em alguma plataforma específica seja necessário compilar do zero (num cluster ou algo parecido) mas este é um livro introdutório né?
+
+Use os binários disponíveis. Existem binários para processadores intel com arquitetura x86 (32 bits) e x86_64 (ou x64 ou AMD64, 64 bits). Também existem binários para ARM, tanto 64 bits quanto 32 bits: sim, é possível rodar Julia no Raspberry Pi!
+
+Para linux x86_64, existe duas possibilidades: glibc e musl. Se você não sabe o que é isso ou qual a melhor opção, não há dúvida, escolha glibc!
+
+Após descompactar os binários, você pode colocar em qualquer lugar. Basta adicionar a pasta `julia-1.x.y/bin` à variável de ambiente `PATH` (onde `x` e `y` é a versão específica que foi baixada). No meu micro, eu costumo copiar esta pasta para `/opt/` e faço um link simbólico em `/usr/bin/julia`:
+
+```bash
+sudo ln -s /opt/julia-1.7.3/bin/julia /usr/local/bin/julia
+```
+
+Se você quer manter tudo local, pode copiar a pasta para `~/.local/share` e fazer um link simbólico para `~/.local/bin`:
+
+```bash
+cp -r julia-1.7.3 ~/.local/share
+ln -s ~/.local/share/julia-1.7.3/bin/julia ~/.local/bin/julia
+```
+
+### Instalando Julia no Mac
+
+Não tenho um Mac, mas a internet é tua amiga.
+
+### Terminais melhores
+
+O terminal do Windows não é a oitava maravilha do mundo. E no Windows 7, o terminal é um horror. Neste caso, é interessante usar algo melhor. A solução mais simples é usar um terminal chamado de Mintty. Uma boa notícia é que o Git (programa de controle de versões) para windows já vem com o Mintty: <https://gitforwindows.org/>. Após instalar, procure por Git Bash. O bom desta opção é que se você for usar Julia mais a sério, você vai ter que usar o Git.
+
+Outra possibilidade é usar o ConEmu <https://conemu.github.io/> que ainda permite usar mais de um terminal em abas.
+
+
+### Fontes
+
+Com a possibilidade de usar caracteres Unicode, é preciso ter uma fonte que tenha estes caracteres. [A família de fontes JuliaMono](https://github.com/cormullion/juliamono), criada por membros da comunidade Julia, é bem completa neste quesito.
 
 ## O REPL e Usando Julia como calculadora {#sec:repl}
 
@@ -89,21 +134,20 @@ Executando Julia, um terminal será aberto. Neste ponto você pode começar a br
 
 O REPL descrito acima é importante e útil mas no final das contas é impossível (ou quase, não tenho dúvida de que alguém conseguiria me provar errado...) desenvolver um programa ou aplicativo sem usar um editor de texto ou ambiente de desenvolvimento. Quando eu falo editor de texto, **não** estou falando  de Word ou coisa parecida. O ambiente tem que permitir a edição de textos em formato ASCII ou UTF-8.
 
-### Editores e IDE
 
 Vários editores reconhecem a sintaxe Julia e auxiliam na edição de arquivos Julia.
 
 No windows o `notepad` pode ser usado não recomendo de modo algum. Se quiser algo bem simples que usa poucos recursos mais bastante útil com bastante funcionalidade, pode-se usar o [Notepad++](https://notepad-plus-plus.org/). Mesmo se você não for usar este programa para trabalhar com Julia, é sempre útil.
 
-Um outro editor multi-plataforma, leve e fácil de usar e bem útil é o <https://micro-editor.github.io/>. É um editor modo texto mas com bastante funcionalidade e pequeno.
-
-Outro editor multi-plataforma leve que serve para editar arquivos Julia é o Geany: <https://www.geany.org/>. Versões recentes reconhecem Julia.
-
 Naturalmente, [Emacs](https://github.com/JuliaEditorSupport/julia-emacs)  e [Vi](https://github.com/JuliaEditorSupport/julia-vim) têm suporte avançado para Julia.
 
-Hoje, talvez o ambiente mais popular e com maior funcionalidade para Julia seja o [Visual Studio Code](https://www.julia-vscode.org/). O visual studio code se vende como uma alternativa moderna e fácil de usar de ambientes clássicos como Emacs e Vi já citados acima.
+Hoje, talvez o ambiente mais popular e com maior funcionalidade para Julia seja o [Visual Studio Code](https://www.julia-vscode.org/). O visual studio code se vende como uma alternativa moderna e fácil de usar de ambientes clássicos como Emacs e Vi já citados acima. 
 
-### Interfaces tipo *Notebook*
+Antes do desenvolvimento do editor atom <https://atom.io> parar, este era o ambiente de desenvolvimento Julia mais usado: <https://junolab.org>. Ainda funciona e é uma boa opção para quem já está familiarizado com o Atom. Para novos usuários, o Visual Studio Code é recomendado pois é aí que está havendo mais desenvolvimento.
+
+Julia incentiva o uso de caracteres Unicode e no terminal (REPL) tem [comandos específicos para a entrada de vários caracteres Unicode que lembra LaTeX](https://docs.julialang.org/en/v1/manual/unicode-input/). Um editor que reconheça estes comandos facilita a vida. Visual Studio Code, Atom, Emacs, Vi, todos, se configurados corretamente, reconhecem estes comandos.
+
+## Interfaces tipo Notebook {#sec:notebook}   
 
 As interfaces tipo notebook são uma inovação recente em ambiente de programação. Elas procuram mesclar as melhores características dos ambientes interativos tipo REPL com os editores mencionados acima.
 
@@ -116,8 +160,26 @@ Esta é a situação perfeita para o uso de Notebooks! Notebooks misturam códig
 Os Notebooks surgiram com o [Wolfram Mathematica](https://www.wolfram.com/mathematica/) mas realmente se tornaram popular com o [Jupyter](https://jupyter.org/). Inicialmente desenvolvido para ser uma interface notebook para python (se chamava IPython notebook originalmente), membros da comunidade Julia perceberam que este ambiente podia ser usado com [Julia](https://github.com/JuliaLang/IJulia.jl) e o nome mudou para refletir esta flexibilidade: Ju(lia) - Py(thon) e R. Hoje é possível usar os notebooks Jupyter com uma variedade imensa de linguagens (até [C++](https://xeus-cling.readthedocs.io/en/latest/) ou [Fortran](https://lfortran.org/)).
 
 
-[Pluto](https://github.com/fonsp/Pluto.jl) é uma nova interface notebook para Julia, um pouco diferente do Jupyter. Tem algumas vantagens e desvantagens, dependendo do gosto, mas é certamente interessante.
+[Pluto](https://github.com/fonsp/Pluto.jl) é uma nova interface notebook para Julia, um pouco diferente do Jupyter. Tem algumas vantagens e desvantagens, dependendo do gosto, mas é certamente interessante. Veremos isso mais para frente.
 
+O uso e operação destas interfaces notebook serão descritas em um capítulo posterios.
+
+## Instalando Python {#sec:python}
+
+*Python?* em um livro de Julia??? Python é uma linguagem legal e tem bastante coisa implementada que pode ser útil. Em particular, a interface notebook Jupyter é implementada em Python e deverá ser instalada para que possa ser usada com Julia.
+
+No Linux, em geral Python já está instalado. Basta instalar o Jupyter (e depois o pacote `IJulia` - veremos isso mais adiante). Mas este não é o caso no Windows. A solução mais simples é instalar a [distribuição de Python Anaconda](https://www.anaconda.com/products/distribution) que já vem com o Jupyter instalado. O Anaconda é grande. Então pode ser interessante instalar o [miniconda](https://docs.conda.io/en/latest/miniconda.html) que é uma versão do Anaconda minimalista. Aí você instala o que você precisar diretamente. [O pacote Julia PyCall](https://github.com/JuliaPy/PyCall.jl) permite que Julia chame código Python diretamente. Em Windows, este pacote instala o miniconda. Se você quiser usar um Python já instalado no teu sistema, basta especificar o executável python na variável de ambiente `PYTHON`. Vale realçar que o pacote  `PyCall` só instalará o miniconda no Windows. No Linux e outras plataformas usará a versão instalado no sistema.
+
+
+**Usuários do Windows 7:** As versões de Python 3.9 e 3.10 não rodam em Windows 7! Você vai precisar da versão 3.8 no máximo. Caso você esteja usando a versão instalada automaticamente com o pacote `PyCall`, você terá problemas: a instalação não reclama que o Windows 7 é incompatível com Python 3.9 (ou acima). Mas sabendo do problema, fica fácil solucionar.
+
+## Estrutura do livro
+
+O livro está dividido em 3 partes:
+
+ 1. Usando Julia, onde os fundamentos de programação em Julia são explorados
+ 2. Resolvendo problemas em Julia onde o ecossistema Julia é explorado, em particular a geração de gráficos.
+ 3. Julia avançado que mostra recursos mais sofisticados e como gerar pacotes.
 
 
 
