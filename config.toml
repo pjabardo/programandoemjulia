@@ -3,6 +3,7 @@
   [projects.default]
   contents = [
     "intro",
+    "primeiroprograma",
     "gerenciador_de_pacotes"
   ]
 
