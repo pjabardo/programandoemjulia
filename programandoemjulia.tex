@@ -1,0 +1,810 @@
+%
+\documentclass[
+  notoc % Suppress Tufte style table of contents.
+]{tufte-book}
+
+% Required Tufte packages.
+\usepackage{changepage} % or changepage
+\usepackage{fancyhdr}
+\usepackage{fontenc}
+\usepackage{geometry}
+\usepackage{hyperref}
+\usepackage{natbib}
+\usepackage{bibentry}
+\usepackage{optparams}
+\usepackage{paralist}
+\usepackage{placeins}
+\usepackage{ragged2e}
+\usepackage{setspace}
+\usepackage{textcase}
+\usepackage{textcomp}
+\usepackage{titlesec}
+\usepackage{titletoc}
+\usepackage{xcolor}
+\usepackage{xifthen}
+
+\geometry{paperheight=10in,paperwidth=7in,marginparwidth=30mm,marginparsep=2mm,bindingoffset=10mm,top=10mm,inner=8mm,outer=8mm,bottom=16mm,includehead,includemp}
+
+% Tufte vs. Pandoc workaround.
+% Issue: https://github.com/Tufte-LaTeX/tufte-latex/issues/64.
+\renewcommand\allcapsspacing[1]{{\addfontfeature{LetterSpace=15}#1}}
+\renewcommand\smallcapsspacing[1]{{\addfontfeature{LetterSpace=10}#1}}
+
+% \setmainfont{TeX Gyre Pagella}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\setmainfont{texgyrepagella}[
+  Extension = .otf,
+  UprightFont = *-regular,
+  BoldFont = *-bold,
+  ItalicFont = *-italic,
+  BoldItalicFont = *-bolditalic,
+]
+
+\newfontfamily\JuliaMono{JuliaMono}[
+  UprightFont = *-Regular,
+  BoldFont = *-Bold
+]
+\newfontface\JuliaMonoRegular{JuliaMono-Regular}
+\newfontface\JuliaMonoBold{JuliaMono-Bold}
+
+\setmonofont{JuliaMono-Medium}[
+  Contextuals=Alternate,
+  Ligatures=NoCommon
+]
+
+
+\DeclareRobustCommand{\href}[2]{#2\footnote{\url{#1}}}
+
+\usepackage{float}
+\floatplacement{figure}{H}
+
+% Listings Julia syntax definition.
+\input{/home/runner/.julia/packages/Books/C7CMR/defaults/julia_listings.tex}
+
+% Unicode support.
+\input{/home/runner/.julia/packages/Books/C7CMR/defaults/julia_listings_unicode.tex}
+
+% Used by Pandoc.
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}
+}
+\newcommand{\passthrough}[1]{#1}
+
+\usepackage{longtable}
+\usepackage{booktabs}
+\usepackage{array}
+
+% Source: Wandmalfarbe/pandoc-latex-template.
+
+\definecolor{linkblue}{HTML}{117af2}
+\usepackage{hyperref}
+\hypersetup{
+  colorlinks,
+  citecolor=linkblue,
+  linkcolor=linkblue,
+  urlcolor=linkblue,
+  linktoc=page, % Avoid Table of Contents being nearly completely blue.
+  pdftitle={Your Awesome Book},
+  pdfauthor={Example author 1; Example author 2},
+  pdflang={en-US},
+  breaklinks=true,
+  pdfcreator={LaTeX via Pandoc}%
+}
+\urlstyle{same} % disable monospaced font for URLs
+
+\title{Your Awesome Book}
+\author{\noindent{Example author 1}\\[3mm] \noindent{Example author
+2}\\[3mm] }
+\date{}
+
+% Re-enable section numbering which was disabled by tufte.
+\setcounter{secnumdepth}{2}
+
+% Fix captions for longtable.
+% Thanks to David Carlisle at https://tex.stackexchange.com/a/183344/92217.
+\makeatletter
+\def\LT@makecaption#1#2#3{%
+  \noalign{\smash{\hbox{\kern\textwidth\rlap{\kern\marginparsep
+  \parbox[t]{\marginparwidth}{\vspace{12pt}%
+\@tufte@caption@font \@tufte@caption@justification \noindent
+   #1{#2: }\ignorespaces #3}}}}}}
+\makeatother
+
+% Doesn't seem to do anything.
+\usepackage{float}
+\floatplacement{figure}{H}
+\floatplacement{table}{H}
+
+% Reduce large spacing around sections.
+\titlespacing*{\chapter}{0pt}{5pt}{20pt}
+\titlespacing*{\section}{0pt}{2.5ex plus 1ex minus .2ex}{1.3ex plus .2ex}
+\titlespacing*{\subsection}{0pt}{1.75ex plus 1ex minus .2ex}{1.0ex plus.2ex}
+
+\titleformat{\chapter}%
+  [hang]% shape
+  {\normalfont\huge\itshape}% format applied to label+text
+  {\huge\thechapter}% label
+  {1em}% horizontal separation between label and title body
+  {}% before the title body
+  []% after the title body
+
+% Reduce spacing in table of contents.
+\usepackage{etoolbox}
+\makeatletter
+\pretocmd{\chapter}{\addtocontents{toc}{\protect\addvspace{-3\p@}}}{}{}
+\pretocmd{\section}{\addtocontents{toc}{\protect\addvspace{-4\p@}}}{}{}
+\pretocmd{\subsection}{\addtocontents{toc}{\protect\addvspace{-5\p@}}}{}{}
+\makeatother
+
+% Long texts are harder to read than tables.
+% Therefore, we can reduce the font size of the table.
+\AtBeginEnvironment{longtable}{\footnotesize}
+
+% Some space between paragraphs is necessary because code blocks can output single line paragraphs.
+\setlength\parskip{1em plus 0.1em minus 0.2em}
+
+% For justified text.
+\usepackage{ragged2e}
+
+% tufte-book disables subsubsections by default.
+% Got this definition back via `\show\subsubsection`.
+
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{unicode-math}
+
+% URL line breaks.
+\usepackage{xurl}
+
+% Probably doesn't hurt.
+\usepackage{marginfix}
+
+
+\begin{document}
+
+\makeatletter
+\thispagestyle{empty}
+\vfill
+{\Huge\bf
+\noindent
+\@title
+}\\[1in]
+{\Large
+\noindent
+\@author
+}
+\makeatother
+
+\makeatletter
+\newpage
+\thispagestyle{empty}
+\vfill
+{\noindent
+\begin{tabular}{l} Example author 1\\ Example institute 1\\ \\ Example author 2\\ Example institute 2\\ \\ \end{tabular}
+}
+\vfill
+{\small
+\url{https://booktemplate.huijzer.xyz}
+
+2022-08-06
+
+Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International
+}
+\makeatother
+
+
+% Don't remove this or authors will show up in header of every page.
+\frontmatter
+\mainmatter
+\fancyfoot[C]{\url{https://github.com/johndoe/Book.jl}}
+
+\setcounter{tocdepth}{1}
+\tableofcontents
+
+% Justify text.
+\justifying
+
+% parindent seems to be set from within another class too.
+% it is really not useful here because it will also indent lines directly after
+% code blocks. Which most of the times not useful.
+\setlength{\parindent}{0pt}
+
+\hypertarget{sec:intro}{%
+\chapter{Introdução}\label{sec:intro}}
+
+\href{https://julialang.org}{Julia} é uma linguagem relativamente nova
+que tem crescido ultimamente, principalmente em áreas relacionadas a
+computação científica. Nessa área, Julia compete com Matlab e outros
+ambientes parecidos. Mas Julia é uma linguagem genérica que pode ser
+utilizada em diferentes aplicações. Nesse sentido, Julia compete com
+Python (que, hoje, também compete com Matlab). Um dos aspectos mais
+celebrados de Julia é que consegue ter alto desempenho competindo assim
+com C/C++/Fortran.
+
+Parafraseando o anuncio da linguagem Julia na web em 2012
+(\url{https://julialang.org/blog/2012/02/why-we-created-julia/}), Julia
+propõe ser uma linguagem que combina a flexibilidade e dinamismo do
+Python, usando uma notação matemática como Matlab, permitindo usar
+macros como lisp, processando strings como Perl, tão potente para
+álgebra linear quanto Matlab, permitindo interfacear programas como
+Shell, sendo fácil de aprender mas não pegando nos nervos de
+programadores avançados e sendo interativo e compilado. Jé mencionei que
+a linguagem deve ser tão rápida quanto C (ou C++ ou Fortran)?
+
+Passados 10 anos deste anuncio, é possível dizer que, em grande parte,
+estes objetivos foram alcançados.
+
+\hypertarget{sec:porquejulia}{%
+\section{Por quê Julia?}\label{sec:porquejulia}}
+
+As características acima parecem boas demais para serem verdade. Mesmo
+se forem, escolher uma nova linguagem vai muito além das características
+positivas da linguagem. Vários outros aspectos são importantes, tanto
+para programadores experientes quanto para iniciantes. Aprender uma nova
+linguagem não é um investimento trivial e deve ser uma decisão bem
+pensada (a não ser que você se divirta aprendendo novas linguagens de
+programação\ldots). Assim, algumas coisas devem ser levadas em
+consideração:
+
+\begin{itemize}
+\tightlist
+\item
+  Julia apresenta caracterísiticas positivas? Se eu não menti, acho que
+  combinar as melhores características de Matlab, Python, C++ me parece
+  interessante.
+\item
+  Julia funciona no meu computador? Estou escrevendo isso no Linux,
+  regularmente interfaceio com hardware em Windows e no Raspberry pi,
+  muito do desenvolvimento é feito no Mac e dá para rodar no FreeBSD.
+  \href{https://julialang.org/downloads/}{Visite e dê uma olhada ná
+  página de download!}
+\item
+  Quanto é que isso vai custar? Nada! Julia é software livre e o código
+  está disponível no github \url{https://github.com/JuliaLang/julia}. O
+  código usa licensa MIT, bem liberal - dá para fazer praticamente
+  qualquer coisa, só precisa mencioanar que está usando código Julia (na
+  dúvida, leia a licensa,
+  \url{https://github.com/JuliaLang/julia/blob/master/LICENSE.md}).
+\item
+  Tem ferramentas para resolver o problema XYZ? O ecossistema tem
+  crescido bastante. Não chega no nível do Python mas com a tua ajuda
+  chegaremos lá! 😉. Na dúvida dê uma olhada
+  \url{https://juliapackages.com/} que lista os pacotes
+  \emph{registrados}
+\item
+  Julia tem futuro? Novas versões com melhorias saem regularmente, a
+  quantidade de pacotes tem crescido bastante e a velocidade deste
+  cresciemento também aumentado. O uso de Julia na indústria também tem
+  crescido (\url{https://juliacomputing.com/case-studies/}).
+\item
+  E tudo o que eu já fiz, tenho que começar do zero? Para pessoas que já
+  programam faz algum tempo este é um problema sério. Interfacear com
+  C/Fortran usando a biblioteca padrão é bem fácil e direto
+  (\url{https://docs.julialang.org/en/v1/manual/calling-c-and-fortran-code/}).
+  Se quiser algo mais automático, dê uma olhada em
+  \href{https://github.com/analytech-solutions/CBinding.jl}{CBinding} ou
+  \href{https://github.com/JuliaInterop/Clang.jl}{Clang}. Existem
+  pacotes para interfacear com
+  \href{https://github.com/JuliaInterop/CxxWrap.jl}{C++},
+  \href{https://github.com/JuliaPy/PyCall.jl}{Python},
+  \href{https://github.com/JuliaInterop/RCall.jl}{R} e outras linguagens
+  (dê uma olhada em \url{https://github.com/JuliaInterop}).
+\item
+  E processamento paralelo? Julia permite programação assíncrona e
+  paralela usando multi-threading, processamento distribuído e até GPU
+  (Julia é particularmente bom nessa área).
+\end{itemize}
+
+Tá, você me convenceu. E documentação? A documentação oficial está
+localizada em \url{https://docs.julialang.org/}. O manual é uma mistura
+de guia de usuário e tutorial. Existem livros e tutoriais que pode podem
+ser acessados em \url{https://julialang.org/learning/}. Infelizmente a
+maior parte está em inglês e esta é a motivação para este livro.
+
+E se eu precisar de ajuda, o que faço? Em inglês, existem vários canais:
+\url{https://julialang.org/community/}. Em particular, vale ressaltar o
+fórum, \url{https://discourse.julialang.org/}, que é bem movimentado e
+com excelente nível. Realmente recomendo que visite. Infelizmente em
+português, as opções são limitadas. Talvez alguém se proponha a fazer
+isso?
+
+\hypertarget{certamente-julia-tem-defeitos-tambuxe9m-nuxe9}{%
+\section{Certamente Julia tem defeitos também,
+né?}\label{certamente-julia-tem-defeitos-tambuxe9m-nuxe9}}
+
+Eu tentei vender uma imagem onde Julia parece ser algo revolucionário.
+Acho que não menti mas tenho que avisar que Julia também tem alguns
+defeitos. Na minha opinião, existem dois que são percebidos rapidamente.
+
+\hypertarget{first-time-to-plot}{%
+\subsection{\texorpdfstring{\emph{First time to
+Plot}}{First time to Plot}}\label{first-time-to-plot}}
+
+O primeiro problema é conhecido na comunidade como \emph{First time to
+plot}, tempo para o primeiro gráfico. Ou seja, quando o tempo para se
+gerar um gráfico \emph{pela primeira vez é longo}. Depois de plotar o
+gráfico pela primeira vez, o desempenho é alto.
+
+Na realidade isso ocorre com qualquer código que é executado pela
+primeira. Esse tempo excessivo ocorre pois na primeira vez que se
+executa esse código, o código precisa ser compilado antes de ser
+executado. E essa compilação leva algum tempo. Em algumas aplicações
+isso pode ser quase imperceptível. Mas em outras, como quando se plota
+um gráfico em um pacote todo escrito em Julia, cada chamada de função
+deve ser compilada. Vejamos como exemplo o seguinte código que calcula o
+seno de uma sequência numérica e plota o gráfico.
+
+\begin{lstlisting}
+julia> using GLMakie
+
+julia> @time begin; x = 0:0.01:1; y = sin.(2π.*x); lines(x,y); end
+ 31.091122 seconds (82.86 M allocations: 4.430 GiB, 3.00% gc time, 95.87% compilation time)
+\end{lstlisting}
+
+31 segundos! Um horror! Mas se este mesmo código for executado
+novamente,
+
+\begin{lstlisting}
+julia> @time begin; x = 0:0.01:1; y = sin.(2π.*x); lines(x,y); end
+  0.014505 seconds (74.12 k allocations: 4.199 MiB)
+\end{lstlisting}
+
+o código leva uma fração de segundo, como seria de se esperar em um
+computador moderno.
+
+Isso tem melhorado e existem soluções para contornar isso, algumas das
+quais serão mostradas neste livro.
+
+\hypertarget{mensagens-de-erro}{%
+\subsection{Mensagens de erro}\label{mensagens-de-erro}}
+
+Se por um lado, o \emph{first-time-to-plot} é sentido no primeiro dia,
+existe um outro problema que a longo prazo é um pouco mais chato:
+mensagens de erro de difícil interpretação. Aqui, novamente, a causa é a
+flexibilidade e reúso de código tão comum e incentivado em Julia.
+Novamente, isso tem melhorado e com experiência você aprende a
+interpretar as mensagens de erro.
+
+\hypertarget{outras-dificuldades}{%
+\subsection{Outras dificuldades}\label{outras-dificuldades}}
+
+Cada um tem sua reclamação. As duas mencionadas acima são as minhas.
+Outra mencionada com frequência na comunidade é a dificuldade de se
+descobrir como fazer algo.
+
+Isso é resultado da documentação que ainda precisa melhorar mas também
+das características da linguagem que a torna tão atrativa: reúso de
+código extensivo em todo o ecossistema. Em Matlab, quando você abre o
+programa, está praticamente tudo disponível e com a documentação ali. Em
+Python, se você estiver trabalhando em alguma aplicação científica ou de
+ciência de dados, você carrega as bibliotecas numpy, scipy, matplotlib e
+pandas e tá tudo lá. Em Julia não existe o equivalente destas grandes
+bibliotecas. A mesma funcionalidade está distribuída em um número muito
+maior de pacotes. Aí fica mais difícil como fazer algo.
+
+Alguém pode perguntar se isso é necessário ou a melhor alternativa. Pode
+parecer que não mas as coisas são mais complicadas. Em alguma aplicação
+específica, alguém pode criar um tipo de vetor com características
+específicas para esta aplicação. Em Matlab ou Python, seria mais
+complicado interfacear estas bibliotecas com a matplotlib por exemplo.
+Mas em Julia isso não só é possível (se o criador do pacote tiver
+trabalhado de maneira inteligente) como é estimulado.
+
+À medida que livros, tutoriais e documentação específica para diferentes
+áreas aparecerem, este problema deve diminuir. Existem propostas para
+melhorar isso mas só o tempo dirá se isso será resolvido.
+
+Outras pegadinhas da linguagem serão descritas ao longo deste livro.
+
+\hypertarget{sec:instalauxe7uxe3o}{%
+\section{Instalando Julia}\label{sec:instalauxe7uxe3o}}
+
+O jeito mais fácil é simplesmente
+\href{https://julialang.org/downloads/}{baixar os binários para a sua
+plataforma} e instalar. Você não precisa ser administrador para instalar
+e pode usar localmente. Até recomendo isso para iniciantes.
+
+\hypertarget{instalando-no-windows}{%
+\subsection{Instalando no Windows}\label{instalando-no-windows}}
+
+Existem algumas opções para a instalação de Julia no Windows. Existem
+versões de 32 bits e 64 bits. Em geral, o recomendado instalar a versão
+de 64 bits. O suporte é, inclusive melhor. É lógico que existem algumas
+circunstâncias onde você precisará usar uma versão de 32 bits - quem
+nunca teve que usar uma dll antigona? 32 bits só se você tiver uma
+necessidade especial.
+
+Mesmo para Windows 64 bits (x86\_64) existem duas versões: uma versão de
+instalação (\emph{installer}) e outra portável (\emph{portable}). A
+versão portável é muito útil se você quiser ter Julia em um
+\emph{pendrive} e usar em qualquer computador. Já a versão de
+instalação, adiciona Julia ao menu iniciar e pode criar ícones na área
+de trabalho. Novamente, você pode instalar como usuário normal, o que é
+recomendado.
+
+Durante a instalação, o instalador vai perguntar se você quer colocar
+Julia nna variável de ambiente \passthrough{\lstinline!PATH!}. Em geral
+isso não é recomendado mas para os fins deste livro, é mais simples
+adicionar a pasta de executáveis Julia no
+\passthrough{\lstinline!PATH!}.
+
+\textbf{Importante} Se você estiver usando Windows 7, será necessário
+instalar algo chamado
+\href{https://www.microsoft.com/en-us/download/details.aspx?id=54616}{Microsoft
+Management Framework}. Sem isso talvez consiga instalar e fazer algo mas
+pode ter algumas limitações.
+
+Ao executar Julia pela primeira vez, será criada uma pasta
+\passthrough{\lstinline!.julia!} no teu \passthrough{\lstinline!HOME!}.
+Nesta pasta estarão instalados os pacotes e suas dependências. Esta
+pasta pode crescer bastante. Em um sistema multi-usuário pode ser
+interessante compartilhar esta pasta entre diferentes usuários. Isso não
+será abordado neste livro.
+
+\hypertarget{instalando-no-linux}{%
+\subsection{Instalando no Linux}\label{instalando-no-linux}}
+
+Se você for mais aventureiro, pode compilar o código fonte mas
+dificilmente há motivo para isso. Algumas coisas em Julia são
+implementadas em C/C++ e muita gente acha que usar um compilador
+otimizado para o seu sistema permitirá obter mais um pouquinho de
+desempenho. Esqueça! O código Julia \emph{que você escreve} é compilado
+usando \href{https://llvm.org/}{LLVM} e usar um outro compilador não vai
+melhorar o desempenho. Talvez em alguma plataforma específica seja
+necessário compilar do zero (num cluster ou algo parecido) mas este é um
+livro introdutório né?
+
+Use os binários disponíveis. Existem binários para processadores intel
+com arquitetura x86 (32 bits) e x86\_64 (ou x64 ou AMD64, 64 bits).
+Também existem binários para ARM, tanto 64 bits quanto 32 bits: sim, é
+possível rodar Julia no Raspberry Pi!
+
+Para linux x86\_64, existe duas possibilidades: glibc e musl. Se você
+não sabe o que é isso ou qual a melhor opção, não há dúvida, escolha
+glibc!
+
+Após descompactar os binários, você pode colocar em qualquer lugar.
+Basta adicionar a pasta \passthrough{\lstinline!julia-1.x.y/bin!} à
+variável de ambiente \passthrough{\lstinline!PATH!} (onde
+\passthrough{\lstinline!x!} e \passthrough{\lstinline!y!} é a versão
+específica que foi baixada). No meu micro, eu costumo copiar esta pasta
+para \passthrough{\lstinline!/opt/!} e faço um link simbólico em
+\passthrough{\lstinline!/usr/bin/julia!}:
+
+\begin{lstlisting}[language=bash]
+sudo ln -s /opt/julia-1.7.3/bin/julia /usr/local/bin/julia
+\end{lstlisting}
+
+Se você quer manter tudo local, pode copiar a pasta para
+\passthrough{\lstinline!\~/.local/share!} e fazer um link simbólico para
+\passthrough{\lstinline!\~/.local/bin!}:
+
+\begin{lstlisting}[language=bash]
+cp -r julia-1.7.3 ~/.local/share
+ln -s ~/.local/share/julia-1.7.3/bin/julia ~/.local/bin/julia
+\end{lstlisting}
+
+\hypertarget{instalando-julia-no-mac}{%
+\subsection{Instalando Julia no Mac}\label{instalando-julia-no-mac}}
+
+Não tenho um Mac, mas a internet é tua amiga.
+
+\hypertarget{terminais-melhores}{%
+\subsection{Terminais melhores}\label{terminais-melhores}}
+
+O terminal do Windows não é a oitava maravilha do mundo. E no Windows 7,
+o terminal é um horror. Neste caso, é interessante usar algo melhor. A
+solução mais simples é usar um terminal chamado de Mintty. Uma boa
+notícia é que o Git (programa de controle de versões) para windows já
+vem com o Mintty: \url{https://gitforwindows.org/}. Após instalar,
+procure por Git Bash. O bom desta opção é que se você for usar Julia
+mais a sério, você vai ter que usar o Git.
+
+Outra possibilidade é usar o ConEmu \url{https://conemu.github.io/} que
+ainda permite usar mais de um terminal em abas.
+
+\hypertarget{fontes}{%
+\subsection{Fontes}\label{fontes}}
+
+Com a possibilidade de usar caracteres Unicode, é preciso ter uma fonte
+que tenha estes caracteres.
+\href{https://github.com/cormullion/juliamono}{A família de fontes
+JuliaMono}, criada por membros da comunidade Julia, é bem completa neste
+quesito.
+
+\hypertarget{sec:repl}{%
+\section{O REPL e Usando Julia como calculadora}\label{sec:repl}}
+
+O ambiente básico de programação Julia é o REPL
+(\emph{R}ead-\emph{E}val-\emph{P}rint-\emph{L}oop - laço de leitura,
+avaliação e impressão). Basicamente nesse ambiente você digita código e
+vê o resultado em tempo real. Este ambiente é extremamente útil ao
+desenvolver programas mas é muito bom para se usar como uma calculadora.
+
+Executando Julia, um terminal será aberto. Neste ponto você pode começar
+a brincar com Julia. Você pode usar este ambiente como uma excelente
+calculadora:
+
+\hypertarget{sec:editores}{%
+\section{Editores e ambiente de desenvolvimento}\label{sec:editores}}
+
+O REPL descrito acima é importante e útil mas no final das contas é
+impossível (ou quase, não tenho dúvida de que alguém conseguiria me
+provar errado\ldots) desenvolver um programa ou aplicativo sem usar um
+editor de texto ou ambiente de desenvolvimento. Quando eu falo editor de
+texto, \textbf{não} estou falando de Word ou coisa parecida. O ambiente
+tem que permitir a edição de textos em formato ASCII ou UTF-8.
+
+Vários editores reconhecem a sintaxe Julia e auxiliam na edição de
+arquivos Julia.
+
+No windows o \passthrough{\lstinline!notepad!} pode ser usado não
+recomendo de modo algum. Se quiser algo bem simples que usa poucos
+recursos mais bastante útil com bastante funcionalidade, pode-se usar o
+\href{https://notepad-plus-plus.org/}{Notepad++}. Mesmo se você não for
+usar este programa para trabalhar com Julia, é sempre útil.
+
+Naturalmente,
+\href{https://github.com/JuliaEditorSupport/julia-emacs}{Emacs} e
+\href{https://github.com/JuliaEditorSupport/julia-vim}{Vi} têm suporte
+avançado para Julia.
+
+Hoje, talvez o ambiente mais popular e com maior funcionalidade para
+Julia seja o \href{https://www.julia-vscode.org/}{Visual Studio Code}. O
+visual studio code se vende como uma alternativa moderna e fácil de usar
+de ambientes clássicos como Emacs e Vi já citados acima.
+
+Antes do desenvolvimento do editor atom \url{https://atom.io} parar,
+este era o ambiente de desenvolvimento Julia mais usado:
+\url{https://junolab.org}. Ainda funciona e é uma boa opção para quem já
+está familiarizado com o Atom. Para novos usuários, o Visual Studio Code
+é recomendado pois é aí que está havendo mais desenvolvimento.
+
+Julia incentiva o uso de caracteres Unicode e no terminal (REPL) tem
+\href{https://docs.julialang.org/en/v1/manual/unicode-input/}{comandos
+específicos para a entrada de vários caracteres Unicode que lembra
+LaTeX}. Um editor que reconheça estes comandos facilita a vida. Visual
+Studio Code, Atom, Emacs, Vi, todos, se configurados corretamente,
+reconhecem estes comandos.
+
+\hypertarget{sec:notebook}{%
+\section{Interfaces tipo Notebook}\label{sec:notebook}}
+
+As interfaces tipo notebook são uma inovação recente em ambiente de
+programação. Elas procuram mesclar as melhores características dos
+ambientes interativos tipo REPL com os editores mencionados acima.
+
+Dependendo da aplicação, os editores de texto terão que ser usados,
+principalmente quando o que se está desenvolvendo é um código. Mas é
+muito comum, principalmente em computação científica, o que se quer
+``vender'' não é um código específico mas sim uma análise de dados ou
+algo parecido. Nesta situação, a abordagem tradicional era escrever
+alguns scripts (programas pequenos que são usados poucas vezes) que são
+executados a partir do REPL de maneira interativa gerando gráficos e
+tabelas que ajudam a analisar os resultados e escrever relatórios.
+
+Neste tipo de aplicação, é muito comum se fazer o que eu chamaria de
+computação exploratória. Quando você começa, você não sabe exatamente o
+que vai fazer. Pode variar dependendo dos dados de entrada e resultado.
+Você calcula algo, faz um gráfico, volta atrás, muda algum parâmetro até
+chegar onde quer (quem já não ficou louco procurando o comando no
+histórico do REPL?).
+
+Esta é a situação perfeita para o uso de Notebooks! Notebooks misturam
+código, documentação (principalmente matemática) e saída (gráficos,
+tabelas, etc) de maneira interativa. É uma interface realmente
+revolocionária para este tipo de aplicação.
+
+Os Notebooks surgiram com o
+\href{https://www.wolfram.com/mathematica/}{Wolfram Mathematica} mas
+realmente se tornaram popular com o
+\href{https://jupyter.org/}{Jupyter}. Inicialmente desenvolvido para ser
+uma interface notebook para python (se chamava IPython notebook
+originalmente), membros da comunidade Julia perceberam que este ambiente
+podia ser usado com \href{https://github.com/JuliaLang/IJulia.jl}{Julia}
+e o nome mudou para refletir esta flexibilidade: Ju(lia) - Py(thon) e R.
+Hoje é possível usar os notebooks Jupyter com uma variedade imensa de
+linguagens (até \href{https://xeus-cling.readthedocs.io/en/latest/}{C++}
+ou \href{https://lfortran.org/}{Fortran}).
+
+\href{https://github.com/fonsp/Pluto.jl}{Pluto} é uma nova interface
+notebook para Julia, um pouco diferente do Jupyter. Tem algumas
+vantagens e desvantagens, dependendo do gosto, mas é certamente
+interessante. Veremos isso mais para frente.
+
+O uso e operação destas interfaces notebook serão descritas em um
+capítulo posterios.
+
+\hypertarget{sec:python}{%
+\section{Instalando Python}\label{sec:python}}
+
+\emph{Python?} em um livro de Julia??? Python é uma linguagem legal e
+tem bastante coisa implementada que pode ser útil. Em particular, a
+interface notebook Jupyter é implementada em Python e deverá ser
+instalada para que possa ser usada com Julia.
+
+No Linux, em geral Python já está instalado. Basta instalar o Jupyter (e
+depois o pacote \passthrough{\lstinline!IJulia!} - veremos isso mais
+adiante). Mas este não é o caso no Windows. A solução mais simples é
+instalar a
+\href{https://www.anaconda.com/products/distribution}{distribuição de
+Python Anaconda} que já vem com o Jupyter instalado. O Anaconda é
+grande. Então pode ser interessante instalar o
+\href{https://docs.conda.io/en/latest/miniconda.html}{miniconda} que é
+uma versão do Anaconda minimalista. Aí você instala o que você precisar
+diretamente. \href{https://github.com/JuliaPy/PyCall.jl}{O pacote Julia
+PyCall} permite que Julia chame código Python diretamente. Em Windows,
+este pacote instala o miniconda. Se você quiser usar um Python já
+instalado no teu sistema, basta especificar o executável python na
+variável de ambiente \passthrough{\lstinline!PYTHON!}. Vale realçar que
+o pacote \passthrough{\lstinline!PyCall!} só instalará o miniconda no
+Windows. No Linux e outras plataformas usará a versão instalado no
+sistema.
+
+\textbf{Usuários do Windows 7:} As versões de Python 3.9 e 3.10 não
+rodam em Windows 7! Você vai precisar da versão 3.8 no máximo. Caso você
+esteja usando a versão instalada automaticamente com o pacote
+\passthrough{\lstinline!PyCall!}, você terá problemas: a instalação não
+reclama que o Windows 7 é incompatível com Python 3.9 (ou acima). Mas
+sabendo do problema, fica fácil solucionar.
+
+\hypertarget{estrutura-do-livro}{%
+\section{Estrutura do livro}\label{estrutura-do-livro}}
+
+O livro está dividido em 3 partes:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Usando Julia, onde os fundamentos de programação em Julia são
+  explorados
+\item
+  Resolvendo problemas em Julia onde o ecossistema Julia é explorado, em
+  particular a geração de gráficos.
+\item
+  Julia avançado que mostra recursos mais sofisticados e como gerar
+  pacotes.
+\end{enumerate}
+
+\hypertarget{sec:primeiro}{%
+\chapter{Meu Primeiro Programa em Julia}\label{sec:primeiro}}
+
+Neste capítulo vamos introduzir os conceitos básicos de programação em
+Julia. Começaremos usando Julia como uma calculadora, introduziremos
+variáveis e seus tipos e vamos ver como se escreve \emph{scripts} em
+Julia. Ao final faremos um \emph{tour} da REPL.
+
+\hypertarget{sec:pr-calculadora}{%
+\section{Julia como calculadora e o REPL}\label{sec:pr-calculadora}}
+
+Para usar Julia como calculadora, basta clicar no ícone na área de
+trabalho (se você escolheu essa opção na instalação) ou selecione Julia
+no menu. Para a turma mais \emph{hardcore} (quem gosta de linha de
+comando e terminais), digite \passthrough{\lstinline!julia!} (se estiver
+no \passthrough{\lstinline!PATH!} se não estiver você vai ter que
+digitar o path completo). Você verá algo assim:
+
+\begin{lstlisting}
+[pjabardo@durruti ~]$ julia
+               _
+   _       _ _(_)_     |  Documentation: https://docs.julialang.org
+  (_)     | (_) (_)    |
+   _ _   _| |_  __ _   |  Type "?" for help, "]?" for Pkg help.
+  | | | | | | |/ _` |  |
+  | | |_| | | | (_| |  |  Version 1.7.3 (2022-05-06)
+ _/ |\__'_|_|_|\__'_|  |  Official https://julialang.org/ release
+|__/                   |
+
+julia> 
+\end{lstlisting}
+
+Pronto, você já pode usar Julia como uma calculadora:
+
+\begin{lstlisting}
+julia> 1+1
+2
+
+julia> sqrt(2)
+1.4142135623730951
+
+julia> sin(pi/4)
+0.7071067811865475
+\end{lstlisting}
+
+Esta interface interativa em modo texto é conhecida como \emph{REPL} -
+\textbf{R}ead-\textbf{E}val-\textbf{P}rint-\textbf{L}oop, laço de
+leitura, interpretação e impressão (se alguém tiver uma tradução menos
+horríve, aceito sugestões\ldots). Isso é a descrição básica do que
+ocorre nesta interface modo texto:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Ler um conjunto de caracteres (\textbf{R}ead)
+\item
+  Interpretar estes caracteres (\textbf{E}val)
+\item
+  Imprimir o resultado no terminal (\textbf{P}rint)
+\item
+  Esperar por mais caracteres para continuar operando (\textbf{L}oop)
+\end{enumerate}
+
+No exemplo acima podemos ver que operadores matemáticos são aceitos
+(\passthrough{\lstinline!1+1!}) assim como chamadas de funções
+(\passthrough{\lstinline!sqrt(2)!}). A maioria das funções matemáticas
+comuns e operadores estão disponíveis no REPL. Mas muitas coisas a mais
+estão disponíveis na \href{https://docs.julialang.org/en/v1/}{biblioteca
+padrão} ou \href{https://juliapackages.com/}{pacotes externos} (veremos
+mais sobre isso daqui a pouco).
+
+Os operadores matemáticos mais comuns podem ser vistos a seguir:
+
+\begin{lstlisting}
+julia> 2+3
+5
+
+julia> 3-2
+1
+
+julia> 2*3
+6
+
+julia> 4/2
+2.0
+
+julia> 2^3
+8
+\end{lstlisting}
+
+Para tirar a potência de um número, use \passthrough{\lstinline!\^!}.
+
+\hypertarget{sec:pr-tipo}{%
+\section{Diferentes tipos de números}\label{sec:pr-tipo}}
+
+No exeamplo anterior, repare na divisão. Existe algo diferente em
+relação aos outros exemplos.
+
+\begin{lstlisting}
+julia> 2*3
+6
+
+julia> 6/3
+2.0
+\end{lstlisting}
+
+Esse exemplo mostra que números podem ter diferentes tipos. No exemplo
+acima, \passthrough{\lstinline!2!} é um número inteiro de 64 bits e
+\passthrough{\lstinline!2.0!} é um número de ponto flutuante de 64 bits.
+Para se certificar disso, pode-se usar a função
+\passthrough{\lstinline!typeof!} para ver o tipo de qualquer objeto
+Julia:
+
+\begin{lstlisting}
+julia> typeof(3)
+Int64
+
+julia> typeof(3.0)
+Float64
+\end{lstlisting}
+
+\passthrough{\lstinline!Int64!} é um número inteiro com sinal de 64
+bits. Já \passthrough{\lstinline!Float64!} é um número de ponto
+flutuante de 64 bits.
+
+\hypertarget{nuxfameros-inteiros}{%
+\subsection{Números inteiros}\label{nuxfameros-inteiros}}
+
+Pode-se intuir que existem outros tipos de números. Os números inteiros
+podem ter diferentes tamanhos, 8, 16, 32, 64, 128 bits ou tamanho
+arbitrário. També pode ter sinal.
+
+\hypertarget{sec:pkg}{%
+\chapter{Gerenciador de Pacotes}\label{sec:pkg}}
+
+\backmatter
+
+\end{document}

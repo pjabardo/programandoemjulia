@@ -1,0 +1,4 @@
+Sitemap: https://programandoemjulia.vento.eng.br/sitemap.xml
+
+User-agent: *
+Disallow:

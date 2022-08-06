@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US" xml:lang="en-US">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Example author 1" />
+  <meta name="author" content="Example author 2" />
+  <title>Por quê Julia? - Your Awesome Book</title>
+  <link rel="shortcut icon" type="image/png" href="/favicon.png"/>
+  <link rel="stylesheet" href="/style.css"/>
+    <script src="/mousetrap.min.js"></script>
+    <style>
+  @font-face {
+    font-family: JuliaMono-Regular;
+    src: url("/JuliaMono-Regular.woff2");
+  }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+  <link rel="stylesheet" href="/github.min.css">
+<script src="/highlight.min.js"></script>
+<script src="/julia.min.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', (event) => {
+    document.querySelectorAll('pre').forEach((el) => {
+        hljs.highlightElement(el);
+    });
+});
+</script>
+ 
+</head>
+<body>
+<script>
+function click_next() {
+  var next = document.getElementById('nav-next');
+  next.firstElementChild.nextElementSibling.click();
+}
+function click_prev() {
+  var prev = document.getElementById('nav-prev');
+  prev.firstElementChild.click();
+}
+Mousetrap.bind('right', click_next);
+Mousetrap.bind('h', click_prev);
+Mousetrap.bind('left', click_prev);
+Mousetrap.bind('l', click_next);
+</script>
+
+<div class="books-container">
+<aside class="books-menu">
+<input type="checkbox" id="menu">
+<label for="menu">☰</label>
+<div class="books-title">
+<a href="/">Your Awesome Book</a>
+</div><br />
+<span class="books-subtitle">
+A Template to Get Your Book Started
+</span>
+<div class="books-menu-content">
+<li><a class="menu-level-1" href="/intro"><b>1</b> Introdução</a></li>
+<li><a class="menu-level-2" href="/porquejulia"><b>1.1</b> Por quê Julia?</a></li>
+<li><a class="menu-level-2" href="/certamente-julia-tem-defeitos-também-né"><b>1.2</b> Certamente Julia tem def..</a></li>
+<li><a class="menu-level-2" href="/instalação"><b>1.3</b> Instalando Julia</a></li>
+<li><a class="menu-level-2" href="/repl"><b>1.4</b> O REPL e Usando Julia co..</a></li>
+<li><a class="menu-level-2" href="/editores"><b>1.5</b> Editores e ambiente de d..</a></li>
+<li><a class="menu-level-2" href="/notebook"><b>1.6</b> Interfaces tipo Notebook</a></li>
+<li><a class="menu-level-2" href="/python"><b>1.7</b> Instalando Python</a></li>
+<li><a class="menu-level-2" href="/estrutura-do-livro"><b>1.8</b> Estrutura do livro</a></li>
+<li><a class="menu-level-1" href="/primeiro"><b>2</b> Meu Primeiro Programa em J..</a></li>
+<li><a class="menu-level-2" href="/pr-calculadora"><b>2.1</b> Julia como calculadora e..</a></li>
+<li><a class="menu-level-2" href="/pr-tipo"><b>2.2</b> Diferentes tipos de núm..</a></li>
+<li><a class="menu-level-1" href="/pkg"><b>3</b> Gerenciador de Pacotes</a></li>
+</div>
+</aside>
+
+<div class="books-content">
+<h2 data-number="1.1" id="sec:porquejulia"><span class="header-section-number">1.1</span> Por quê Julia?</h2>
+<p>As características acima parecem boas demais para serem verdade. Mesmo se forem, escolher uma nova linguagem vai muito além das características positivas da linguagem. Vários outros aspectos são importantes, tanto para programadores experientes quanto para iniciantes. Aprender uma nova linguagem não é um investimento trivial e deve ser uma decisão bem pensada (a não ser que você se divirta aprendendo novas linguagens de programação…). Assim, algumas coisas devem ser levadas em consideração:</p>
+<ul>
+<li>Julia apresenta caracterísiticas positivas? Se eu não menti, acho que combinar as melhores características de Matlab, Python, C++ me parece interessante.</li>
+<li>Julia funciona no meu computador? Estou escrevendo isso no Linux, regularmente interfaceio com hardware em Windows e no Raspberry pi, muito do desenvolvimento é feito no Mac e dá para rodar no FreeBSD. <a href="https://julialang.org/downloads/">Visite e dê uma olhada ná página de download!</a></li>
+<li>Quanto é que isso vai custar? Nada! Julia é software livre e o código está disponível no github <a href="https://github.com/JuliaLang/julia" class="uri">https://github.com/JuliaLang/julia</a>. O código usa licensa MIT, bem liberal - dá para fazer praticamente qualquer coisa, só precisa mencioanar que está usando código Julia (na dúvida, leia a licensa, <a href="https://github.com/JuliaLang/julia/blob/master/LICENSE.md" class="uri">https://github.com/JuliaLang/julia/blob/master/LICENSE.md</a>).</li>
+<li>Tem ferramentas para resolver o problema XYZ? O ecossistema tem crescido bastante. Não chega no nível do Python mas com a tua ajuda chegaremos lá! 😉. Na dúvida dê uma olhada <a href="https://juliapackages.com/" class="uri">https://juliapackages.com/</a> que lista os pacotes <em>registrados</em></li>
+<li>Julia tem futuro? Novas versões com melhorias saem regularmente, a quantidade de pacotes tem crescido bastante e a velocidade deste cresciemento também aumentado. O uso de Julia na indústria também tem crescido (<a href="https://juliacomputing.com/case-studies/" class="uri">https://juliacomputing.com/case-studies/</a>).</li>
+<li>E tudo o que eu já fiz, tenho que começar do zero? Para pessoas que já programam faz algum tempo este é um problema sério. Interfacear com C/Fortran usando a biblioteca padrão é bem fácil e direto (<a href="https://docs.julialang.org/en/v1/manual/calling-c-and-fortran-code/" class="uri">https://docs.julialang.org/en/v1/manual/calling-c-and-fortran-code/</a>). Se quiser algo mais automático, dê uma olhada em <a href="https://github.com/analytech-solutions/CBinding.jl">CBinding</a> ou <a href="https://github.com/JuliaInterop/Clang.jl">Clang</a>. Existem pacotes para interfacear com <a href="https://github.com/JuliaInterop/CxxWrap.jl">C++</a>, <a href="https://github.com/JuliaPy/PyCall.jl">Python</a>, <a href="https://github.com/JuliaInterop/RCall.jl">R</a> e outras linguagens (dê uma olhada em <a href="https://github.com/JuliaInterop" class="uri">https://github.com/JuliaInterop</a>).</li>
+<li>E processamento paralelo? Julia permite programação assíncrona e paralela usando multi-threading, processamento distribuído e até GPU (Julia é particularmente bom nessa área).</li>
+</ul>
+<p>Tá, você me convenceu. E documentação? A documentação oficial está localizada em <a href="https://docs.julialang.org/" class="uri">https://docs.julialang.org/</a>. O manual é uma mistura de guia de usuário e tutorial. Existem livros e tutoriais que pode podem ser acessados em <a href="https://julialang.org/learning/" class="uri">https://julialang.org/learning/</a>. Infelizmente a maior parte está em inglês e esta é a motivação para este livro.</p>
+<p>E se eu precisar de ajuda, o que faço? Em inglês, existem vários canais: <a href="https://julialang.org/community/" class="uri">https://julialang.org/community/</a>. Em particular, vale ressaltar o fórum, <a href="https://discourse.julialang.org/" class="uri">https://discourse.julialang.org/</a>, que é bem movimentado e com excelente nível. Realmente recomendo que visite. Infelizmente em português, as opções são limitadas. Talvez alguém se proponha a fazer isso?</p>
+
+
+<div class="bottom-nav">
+    <p id="nav-prev" style="text-align: left;">
+        <a class="menu-level-1" href="/intro"><b>1</b> Introdução</a> <kbd>←</kbd>
+        <span id="nav-next" style="float: right;">
+            <kbd>→</kbd> <a class="menu-level-2" href="/certamente-julia-tem-defeitos-também-né"><b>1.2</b> Certamente Julia tem def..</a>
+        </span>
+    </p>
+</div>
+
+
+<div class="license">
+    <br/>
+  <br/>
+  <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a>
+    Example author 1, Example author 2
+</div>
+</div>
+</div>
+</body>
+</html>

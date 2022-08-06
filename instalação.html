@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US" xml:lang="en-US">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Example author 1" />
+  <meta name="author" content="Example author 2" />
+  <title>Instalando Julia - Your Awesome Book</title>
+  <link rel="shortcut icon" type="image/png" href="/favicon.png"/>
+  <link rel="stylesheet" href="/style.css"/>
+    <script src="/mousetrap.min.js"></script>
+    <style>
+  @font-face {
+    font-family: JuliaMono-Regular;
+    src: url("/JuliaMono-Regular.woff2");
+  }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+  <link rel="stylesheet" href="/github.min.css">
+<script src="/highlight.min.js"></script>
+<script src="/julia.min.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', (event) => {
+    document.querySelectorAll('pre').forEach((el) => {
+        hljs.highlightElement(el);
+    });
+});
+</script>
+ 
+</head>
+<body>
+<script>
+function click_next() {
+  var next = document.getElementById('nav-next');
+  next.firstElementChild.nextElementSibling.click();
+}
+function click_prev() {
+  var prev = document.getElementById('nav-prev');
+  prev.firstElementChild.click();
+}
+Mousetrap.bind('right', click_next);
+Mousetrap.bind('h', click_prev);
+Mousetrap.bind('left', click_prev);
+Mousetrap.bind('l', click_next);
+</script>
+
+<div class="books-container">
+<aside class="books-menu">
+<input type="checkbox" id="menu">
+<label for="menu">☰</label>
+<div class="books-title">
+<a href="/">Your Awesome Book</a>
+</div><br />
+<span class="books-subtitle">
+A Template to Get Your Book Started
+</span>
+<div class="books-menu-content">
+<li><a class="menu-level-1" href="/intro"><b>1</b> Introdução</a></li>
+<li><a class="menu-level-2" href="/porquejulia"><b>1.1</b> Por quê Julia?</a></li>
+<li><a class="menu-level-2" href="/certamente-julia-tem-defeitos-também-né"><b>1.2</b> Certamente Julia tem def..</a></li>
+<li><a class="menu-level-2" href="/instalação"><b>1.3</b> Instalando Julia</a></li>
+<li><a class="menu-level-2" href="/repl"><b>1.4</b> O REPL e Usando Julia co..</a></li>
+<li><a class="menu-level-2" href="/editores"><b>1.5</b> Editores e ambiente de d..</a></li>
+<li><a class="menu-level-2" href="/notebook"><b>1.6</b> Interfaces tipo Notebook</a></li>
+<li><a class="menu-level-2" href="/python"><b>1.7</b> Instalando Python</a></li>
+<li><a class="menu-level-2" href="/estrutura-do-livro"><b>1.8</b> Estrutura do livro</a></li>
+<li><a class="menu-level-1" href="/primeiro"><b>2</b> Meu Primeiro Programa em J..</a></li>
+<li><a class="menu-level-2" href="/pr-calculadora"><b>2.1</b> Julia como calculadora e..</a></li>
+<li><a class="menu-level-2" href="/pr-tipo"><b>2.2</b> Diferentes tipos de núm..</a></li>
+<li><a class="menu-level-1" href="/pkg"><b>3</b> Gerenciador de Pacotes</a></li>
+</div>
+</aside>
+
+<div class="books-content">
+<h2 data-number="1.3" id="sec:instalação"><span class="header-section-number">1.3</span> Instalando Julia</h2>
+<p>O jeito mais fácil é simplesmente <a href="https://julialang.org/downloads/">baixar os binários para a sua plataforma</a> e instalar. Você não precisa ser administrador para instalar e pode usar localmente. Até recomendo isso para iniciantes.</p>
+<h3 data-number="1.3.1" id="instalando-no-windows"><span class="header-section-number">1.3.1</span> Instalando no Windows</h3>
+<p>Existem algumas opções para a instalação de Julia no Windows. Existem versões de 32 bits e 64 bits. Em geral, o recomendado instalar a versão de 64 bits. O suporte é, inclusive melhor. É lógico que existem algumas circunstâncias onde você precisará usar uma versão de 32 bits - quem nunca teve que usar uma dll antigona? 32 bits só se você tiver uma necessidade especial.</p>
+<p>Mesmo para Windows 64 bits (x86_64) existem duas versões: uma versão de instalação (<em>installer</em>) e outra portável (<em>portable</em>). A versão portável é muito útil se você quiser ter Julia em um <em>pendrive</em> e usar em qualquer computador. Já a versão de instalação, adiciona Julia ao menu iniciar e pode criar ícones na área de trabalho. Novamente, você pode instalar como usuário normal, o que é recomendado.</p>
+<p>Durante a instalação, o instalador vai perguntar se você quer colocar Julia nna variável de ambiente <code>PATH</code>. Em geral isso não é recomendado mas para os fins deste livro, é mais simples adicionar a pasta de executáveis Julia no <code>PATH</code>.</p>
+<p><strong>Importante</strong> Se você estiver usando Windows 7, será necessário instalar algo chamado <a href="https://www.microsoft.com/en-us/download/details.aspx?id=54616">Microsoft Management Framework</a>. Sem isso talvez consiga instalar e fazer algo mas pode ter algumas limitações.</p>
+<p>Ao executar Julia pela primeira vez, será criada uma pasta <code>.julia</code> no teu <code>HOME</code>. Nesta pasta estarão instalados os pacotes e suas dependências. Esta pasta pode crescer bastante. Em um sistema multi-usuário pode ser interessante compartilhar esta pasta entre diferentes usuários. Isso não será abordado neste livro.</p>
+<h3 data-number="1.3.2" id="instalando-no-linux"><span class="header-section-number">1.3.2</span> Instalando no Linux</h3>
+<p>Se você for mais aventureiro, pode compilar o código fonte mas dificilmente há motivo para isso. Algumas coisas em Julia são implementadas em C/C++ e muita gente acha que usar um compilador otimizado para o seu sistema permitirá obter mais um pouquinho de desempenho. Esqueça! O código Julia <em>que você escreve</em> é compilado usando <a href="https://llvm.org/">LLVM</a> e usar um outro compilador não vai melhorar o desempenho. Talvez em alguma plataforma específica seja necessário compilar do zero (num cluster ou algo parecido) mas este é um livro introdutório né?</p>
+<p>Use os binários disponíveis. Existem binários para processadores intel com arquitetura x86 (32 bits) e x86_64 (ou x64 ou AMD64, 64 bits). Também existem binários para ARM, tanto 64 bits quanto 32 bits: sim, é possível rodar Julia no Raspberry Pi!</p>
+<p>Para linux x86_64, existe duas possibilidades: glibc e musl. Se você não sabe o que é isso ou qual a melhor opção, não há dúvida, escolha glibc!</p>
+<p>Após descompactar os binários, você pode colocar em qualquer lugar. Basta adicionar a pasta <code>julia-1.x.y/bin</code> à variável de ambiente <code>PATH</code> (onde <code>x</code> e <code>y</code> é a versão específica que foi baixada). No meu micro, eu costumo copiar esta pasta para <code>/opt/</code> e faço um link simbólico em <code>/usr/bin/julia</code>:</p>
+<pre class="bash"><code>sudo ln -s /opt/julia-1.7.3/bin/julia /usr/local/bin/julia</code></pre>
+<p>Se você quer manter tudo local, pode copiar a pasta para <code>~/.local/share</code> e fazer um link simbólico para <code>~/.local/bin</code>:</p>
+<pre class="bash"><code>cp -r julia-1.7.3 ~/.local/share
+ln -s ~/.local/share/julia-1.7.3/bin/julia ~/.local/bin/julia</code></pre>
+<h3 data-number="1.3.3" id="instalando-julia-no-mac"><span class="header-section-number">1.3.3</span> Instalando Julia no Mac</h3>
+<p>Não tenho um Mac, mas a internet é tua amiga.</p>
+<h3 data-number="1.3.4" id="terminais-melhores"><span class="header-section-number">1.3.4</span> Terminais melhores</h3>
+<p>O terminal do Windows não é a oitava maravilha do mundo. E no Windows 7, o terminal é um horror. Neste caso, é interessante usar algo melhor. A solução mais simples é usar um terminal chamado de Mintty. Uma boa notícia é que o Git (programa de controle de versões) para windows já vem com o Mintty: <a href="https://gitforwindows.org/" class="uri">https://gitforwindows.org/</a>. Após instalar, procure por Git Bash. O bom desta opção é que se você for usar Julia mais a sério, você vai ter que usar o Git.</p>
+<p>Outra possibilidade é usar o ConEmu <a href="https://conemu.github.io/" class="uri">https://conemu.github.io/</a> que ainda permite usar mais de um terminal em abas.</p>
+<h3 data-number="1.3.5" id="fontes"><span class="header-section-number">1.3.5</span> Fontes</h3>
+<p>Com a possibilidade de usar caracteres Unicode, é preciso ter uma fonte que tenha estes caracteres. <a href="https://github.com/cormullion/juliamono">A família de fontes JuliaMono</a>, criada por membros da comunidade Julia, é bem completa neste quesito.</p>
+
+
+<div class="bottom-nav">
+    <p id="nav-prev" style="text-align: left;">
+        <a class="menu-level-2" href="/certamente-julia-tem-defeitos-também-né"><b>1.2</b> Certamente Julia tem def..</a> <kbd>←</kbd>
+        <span id="nav-next" style="float: right;">
+            <kbd>→</kbd> <a class="menu-level-2" href="/repl"><b>1.4</b> O REPL e Usando Julia co..</a>
+        </span>
+    </p>
+</div>
+
+
+<div class="license">
+    <br/>
+  <br/>
+  <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a>
+    Example author 1, Example author 2
+</div>
+</div>
+</div>
+</body>
+</html>
