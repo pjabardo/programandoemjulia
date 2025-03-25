@@ -8,6 +8,9 @@ Esta é a página do curso de programação em Julia oferecido pela Assipt em 20
 
 Este é um curso introdutório e não é necessário ter conhecimento prévio de programação (mas isso sempre ajuda).
 
+## Grupo de discussão do curso
+
+Criei uma lista de discussão no google groups. Vou tentar acompanhar: <https://groups.google.com/g/programandoemjulia>
 
 ## Material oficial (<https://julialang.org>)
 
