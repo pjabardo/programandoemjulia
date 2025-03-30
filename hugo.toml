@@ -22,6 +22,7 @@ pygmentsCodefencesGuessSyntax = true
 #  homeTitle = "Beautiful Hugo Theme" # Set a different text for the header on the home page
   subtitle = "Aprenda a programar em Julia"
   mainSections = ["post","posts"]
+  math = true
   logo = "img/julia-logo-color.png" # Expecting square dimensions
   favicon = "img/julia-logo-color.png"
   dateFormat = "January 2, 2006"
@@ -38,7 +39,6 @@ pygmentsCodefencesGuessSyntax = true
 #  hideAuthor = true
 #  gcse = "012345678901234567890:abcdefghijk" # Get your code from google.com/cse. Make sure to go to "Look and Feel" and change Layout to "Full Width" and Theme to "Classic"
 #  disclaimerText = "The opinions expressed herein are my own personal opinions and do not represent my employer’s view in any way."
-
 #[[Params.bigimg]]
 #  src = "img/triangle.jpg"
 #  desc = "Triangle"
@@ -97,3 +97,11 @@ pygmentsCodefencesGuessSyntax = true
     weight = 3
 
 
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.extensions]
+      [markup.goldmark.extensions.passthrough]
+        enable = true
+        [markup.goldmark.extensions.passthrough.delimiters]
+          block = [['\[', '\]'], ['$$', '$$']]
+          inline = [['\(', '\)']]
