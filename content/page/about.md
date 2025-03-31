@@ -8,6 +8,11 @@ Esta é a página do curso de programação em Julia oferecido pela Assipt em 20
 
 Este é um curso introdutório e não é necessário ter conhecimento prévio de programação (mas isso sempre ajuda).
 
+## Link do curso no youtube
+
+O curso está sendo live-streamed no youtube no [canal da assipt](https://www.youtube.com/@canalassipt8770). Procure na aba Live <https://www.youtube.com/@canalassipt8770/streams>
+
+
 ## Grupo de discussão do curso
 
 Criei uma lista de discussão no google groups. Vou tentar acompanhar: <https://groups.google.com/g/programandoemjulia>
