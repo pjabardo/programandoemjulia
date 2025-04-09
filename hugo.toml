@@ -23,8 +23,8 @@ pygmentsCodefencesGuessSyntax = true
   subtitle = "Aprenda a programar em Julia"
   mainSections = ["post","posts"]
   math = true
-  logo = "img/julia-logo-color.png" # Expecting square dimensions
-  favicon = "img/julia-logo-color.png"
+  logo = "img/julia-brasil.svg" # Expecting square dimensions
+  favicon = "img/julia.ico"
   dateFormat = "January 2, 2006"
   commit = false
   rss = true
@@ -96,7 +96,39 @@ pygmentsCodefencesGuessSyntax = true
     url = "page/about/"
     weight = 3
 
+[[menu.main]]
+    identifier = "julia"	
+    name = "Julia"
+    weight = 2
+    
+[[menu.main]]
+    parent = "julia"
+    name = "Julia"
+    url = "https://julialang.org"
+    weight = 1
 
+[[menu.main]]
+    parent = "julia"
+    name = "Download"
+    url = "https://julialang.org/downloads/"
+    weight = 2
+
+[[menu.main]]
+    parent = "julia"
+    name = "Documentação"
+    url = "https://docs.julialang.org"
+    weight = 3
+
+[[menu.main]]
+    parent = "julia"
+    name = "Fórum oficial (Inglês)"
+    url = "https://discourse.julialang.org/"
+    weight = 4
+
+[[menu.main]]
+   name = "Fórum"
+   url = "https://groups.google.com/g/programandoemjulia"
+   weight=4
 [markup]
   [markup.goldmark]
     [markup.goldmark.extensions]
