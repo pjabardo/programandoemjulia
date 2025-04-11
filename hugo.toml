@@ -1,4 +1,4 @@
-baseurl = "https://programandoemjulia.vento.eng.br"
+baseurl = "https://julia.dev.br"
 DefaultContentLanguage = "pt-br"
 title = "Programando em Julia"
 # Using theme as git submodule
@@ -8,8 +8,7 @@ theme = "beautifulhugo"
 pygmentsStyle = "trac"
 pygmentsUseClasses = true
 pygmentsCodeFences = true
-pygmentsCodefencesGuessSyntax = true
-#pygmentsUseClassic = true
+pygmentsCodefencesGuessSyntax = true #pygmentsUseClassic = true
 #pygmentOptions = "linenos=inline"
 
 [Services]
@@ -87,10 +86,20 @@ pygmentsCodefencesGuessSyntax = true
  # lastfm = "username"
 
 [[menu.main]]
-    name = "Blog"
+    identifier = "site"
+    name = "Este site"
+    weight = 1
+[[menu.main]]
+    name  = "Blog"
+    parent = "site"
     url = ""
     weight = 1
-
+[[menu.main]]
+    name  = "Tutoriais"
+    parent = "site"
+    url = "page/tutoriais/"
+    weight = 2
+    
 [[menu.main]]
     name = "Informações"
     url = "page/about/"
