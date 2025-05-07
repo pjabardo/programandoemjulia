@@ -17,4 +17,7 @@ Calcular raízes quadradas é algo que se sabe faz muito tempo. Faz muito tempo 
 Comparamos este método de cálculo de derivadas com o método de diferenças centradas e a solução analítica. Neste notebook, é utilizada uma técnica de programação que pode ser novo para algumas pessoas: [funções de ordem superior](https://pt.wikipedia.org/wiki/Fun%C3%A7%C3%A3o_de_primeira_classe) onde funções podem ser passadas para outras funções como argumentos, e mais: uma função pode retornar uma nova função!
 
 
+### Polinômios em Julia
+
+Este notebook também apresenta o pacote Julia [Polynomials.jl](https://github.com/JuliaMath/Polynomials.jl). Este pacote faz um monte de coisas com polinômios. 
 
